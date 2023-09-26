@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  app:
+    container_name: Casino
+    restart: always
+    build:
+      context: .
+      dockerfile: DockerfileDev
+    ports:
+      - '80:3000'
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    networks:
+      - main
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_USER: casino
+      POSTGRES_PASSWORD: casino*13
+      POSTGRES_DATABASE: development
+    ports:
+      - '5432:5432'
+    networks:
+      - main
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - '8080:8080'
+    networks:
+      - main
+
+networks:
+  main:

@@ -1,0 +1,164 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/categories": {
+      "get": {
+        "operationId": "CategoriesController_findAll",
+        "summary": "",
+        "description": "Get all categories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "List of categories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Categories not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "tags": [
+          "Categories"
+        ]
+      }
+    },
+    "/api/categories/{category_id}": {
+      "get": {
+        "operationId": "CategoriesController_findOne",
+        "summary": "",
+        "description": "Get category by id",
+        "parameters": [
+          {
+            "name": "category_id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "offset",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryGamesDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category with given ID doesn`t exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "tags": [
+          "Categories"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Casino Project",
+    "description": "The Casino Test Project API description",
+    "version": "v1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CategoryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "slug": {
+            "type": "string",
+            "example": "filter/list/exclusive"
+          },
+          "title": {
+            "type": "string",
+            "example": "VJ\"s Exclusives"
+          },
+          "gamesCount": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "GamesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Crazy Time"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://cdn.plaingaming.net/files/dynimage/124:124/files/upload/game/gameimage_vjicon5eddf05faaac50.png"
+          }
+        }
+      },
+      "CategoryGamesDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "VJ\"s Exclusives"
+          },
+          "gamesCount": {
+            "type": "number",
+            "example": 12
+          },
+          "games": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GamesDto"
+            }
+          }
+        }
+      }
+    }
+  }
+}
